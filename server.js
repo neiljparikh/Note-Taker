@@ -4,10 +4,11 @@ const path = require("path");
 const db = require("./db/db.json")
 const fs = require("fs");
 const { error } = require("console");
+const { readFromFile } = require("./helpers/fsUtils");
 
 //APP/PORT
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001
 
 
 //MIDDLEWARE
@@ -47,7 +48,8 @@ app.post('/api/notes', (req, res) => {
      
 
 });
-//Getting Alk Notes
+//Getting All Notes
 app.get('/api/notes', (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
 })
+
