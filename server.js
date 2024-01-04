@@ -39,11 +39,15 @@ app.post('/api/notes', (req, res) => {
         title: req.body.title,
         text: req.body.text
     };
+    //Add new note object to existing db file
      db.push(newNote)
     
-     fs.writeFile("./db/db.json", db, err => {
+    //Convert db array object to string
+    const dbJSON = JSON.stringify(db);
+
+     fs.writeFile("./db/db.json", dbJSON, (err) => {
         if (err) throw error
-        res.status(200)  
+        res.status(200).send("Note added successfully");
     })
      
 
@@ -53,3 +57,8 @@ app.get('/api/notes', (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
 })
 
+
+//INITIALIZATION
+app.listen(PORT, () =>
+  console.log(`App listening at http://localhost:${PORT}`)
+);
